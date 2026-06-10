@@ -253,7 +253,7 @@ with col_chat:
 	# if eval_result.get("scores"):
 	#	st.session_state.evaluations.append(eval_result)
         
-	st.rerun()
+        st.rerun()
 
 with col_eval:
     if st.session_state.evaluations:
