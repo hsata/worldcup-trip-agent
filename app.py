@@ -247,11 +247,13 @@ with col_chat:
 
         st.session_state.messages.append({"role": "assistant", "content": response})
 
-        eval_result = asyncio.run(evaluate_response(user_input, response))
-        if eval_result.get("scores"):
-            st.session_state.evaluations.append(eval_result)
-
-        st.rerun()
+	# Evaluation disabled for hosted demo to avoid Vertex AI auth issues on Streamlit Cloud.
+	# The main Google ADK + Gemini agent still runs normally.
+	# eval_result = asyncio.run(evaluate_response(user_input, response))
+	# if eval_result.get("scores"):
+	#	st.session_state.evaluations.append(eval_result)
+        
+	st.rerun()
 
 with col_eval:
     if st.session_state.evaluations:
