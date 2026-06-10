@@ -10,10 +10,7 @@ evaluation_history = []
 
 async def evaluate_response(user_query: str, agent_response: str) -> dict:
     """Use Gemini to evaluate the agent's response quality."""
-    client = genai.Client(
-        vertexai=True,
-        project=os.getenv("GOOGLE_CLOUD_PROJECT"),
-        location=os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1"),
+    client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
     )
 
     eval_prompt = f"""You are an expert evaluator for a World Cup 2026 travel assistant 
