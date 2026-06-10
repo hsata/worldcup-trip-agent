@@ -5,9 +5,26 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "TRUE")
-os.environ["GOOGLE_CLOUD_PROJECT"] = os.getenv("GOOGLE_CLOUD_PROJECT", "")
-os.environ["GOOGLE_CLOUD_LOCATION"] = os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1")
+try:
+    for key in [
+        "GOOGLE_GENAI_USE_VERTEXAI",
+        "GOOGLE_API_KEY",
+        "GOOGLE_CLOUD_PROJECT",
+        "GOOGLE_CLOUD_LOCATION",
+        "PHOENIX_API_KEY",
+        "PHOENIX_COLLECTOR_ENDPOINT",
+    ]:
+        if key in st.secrets:
+            os.environ[key] = str(st.secrets[key])
+except Exception:
+    pass
+
+os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = os.getenv(
+    "GOOGLE_GENAI_USE_VERTEXAI", "FALSE"
+)
+os.environ["GOOGLE_CLOUD_LOCATION"] = os.getenv(
+    "GOOGLE_CLOUD_LOCATION", "us-central1"
+)
 
 from worldcup_agent.tracing_setup import setup_tracing
 from worldcup_agent.agent import worldcup_agent
